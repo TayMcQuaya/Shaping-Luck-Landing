@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're in · Shaping Luck</title>
+  <meta name="description" content="Your lifetime membership to Shaping Luck is confirmed. Welcome to the community." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: { night:'#060818', dusk:'#0A0E27', haze:'#141a36', gold:'#F5B841', goldsoft:'#FBD37A', mist:'#94A3B8' },
+          keyframes: {
+            twinkle: { '0%,100%': { opacity:'0.3' }, '50%': { opacity:'1' } },
+            floaty: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-8px)' } },
+            ringpulse: {
+              '0%': { transform:'scale(1)', opacity:'0.55' },
+              '70%': { transform:'scale(1.6)', opacity:'0' },
+              '100%': { transform:'scale(1.6)', opacity:'0' },
+            },
+            checkdraw: {
+              '0%': { strokeDashoffset:'60' },
+              '100%': { strokeDashoffset:'0' },
+            },
+          },
+          animation: {
+            twinkle:'twinkle 4s ease-in-out infinite',
+            floaty:'floaty 6s ease-in-out infinite',
+            ringpulse:'ringpulse 2.4s ease-out infinite',
+            checkdraw:'checkdraw 1s ease-out forwards .25s',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+    body { background-color: #060818; }
+
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    .reveal.in { opacity:1; transform:none; }
+    .text-gold-gradient { background:linear-gradient(120deg,#FBD37A 0%,#F5B841 50%,#E89B2A 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+    #constellation { position:absolute; inset:0; width:100%; height:100%; }
+    .glass { background:rgba(20,26,54,.55); backdrop-filter:blur(10px); border:1px solid rgba(245,184,65,.14); }
+    .btn-gold { background:linear-gradient(120deg,#FBD37A,#F5B841); color:#1a1206; box-shadow:0 8px 30px -8px rgba(245,184,65,.5); }
+    .btn-gold:hover { filter:brightness(1.05); }
+
+    .check-path { stroke-dasharray: 60; stroke-dashoffset: 60; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      .reveal { opacity:1 !important; transform:none !important; transition:none; }
+      .animate-twinkle, .animate-floaty, .animate-ringpulse, .animate-checkdraw { animation:none !important; }
+      .check-path { stroke-dashoffset: 0 !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-night text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-gold/30">
+
+  <!-- ===================== STICKY TOP BAR ===================== -->
+  <div id="topbar" class="fixed top-0 inset-x-0 z-50 transition-colors duration-300">
+    <div class="mx-auto max-w-6xl px-5 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html#top" class="flex items-center gap-2 group">
+        <span class="h-2 w-2 rounded-full bg-gold group-hover:scale-125 transition-transform"></span>
+        <span class="font-serif text-lg tracking-wide">Shaping Luck</span>
+      </a>
+      <a href="index.html" class="text-xs sm:text-sm font-medium text-gold hover:text-goldsoft transition-colors inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to home
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+    <canvas id="constellation" aria-hidden="true"></canvas>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-night/30 to-night pointer-events-none"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(70% 60% at 50% 35%, rgba(245,184,65,.10), transparent 70%);"></div>
+
+    <div class="relative z-10 mx-auto max-w-3xl px-6 text-center">
+
+      <!-- Check mark badge -->
+      <div class="reveal flex justify-center mb-8">
+        <div class="relative">
+          <span class="absolute inset-0 rounded-full bg-gold/30 animate-ringpulse" aria-hidden="true"></span>
+          <span class="absolute inset-0 rounded-full bg-gold/20 animate-ringpulse" style="animation-delay:.8s" aria-hidden="true"></span>
+          <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-goldsoft to-gold flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(245,184,65,.6)]">
+            <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path class="check-path animate-checkdraw" d="M5 12.5l4.5 4.5L19 7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <p class="reveal mb-6 text-xs sm:text-sm font-medium tracking-[0.3em] uppercase text-gold/90">Payment confirmed</p>
+
+      <h1 class="reveal font-serif text-5xl sm:text-7xl leading-[1.05] tracking-tight">
+        You're <span class="text-gold-gradient italic">in.</span>
+      </h1>
+
+      <p class="reveal mx-auto mt-7 max-w-xl text-lg sm:text-xl leading-relaxed text-mist">
+        Welcome to the community. Your lifetime membership to Shaping Luck is locked in. Every room. Every window. Every connection. Forever.
+      </p>
+
+      <!-- What's next -->
+      <div class="reveal mt-12 grid gap-4 sm:grid-cols-3 text-left">
+        <div class="glass rounded-2xl p-5">
+          <div class="font-serif text-3xl text-gold/40 mb-2">01</div>
+          <h3 class="font-medium text-white mb-1">Check your inbox</h3>
+          <p class="text-sm text-mist leading-relaxed">Your receipt and welcome email are on the way. Add us to your contacts so nothing gets lost.</p>
+        </div>
+        <div class="glass rounded-2xl p-5" style="transition-delay:.06s">
+          <div class="font-serif text-3xl text-gold/40 mb-2">02</div>
+          <h3 class="font-medium text-white mb-1">Save the next window</h3>
+          <p class="text-sm text-mist leading-relaxed">We'll send you the next event time. Show up. That's the only commitment.</p>
+        </div>
+        <div class="glass rounded-2xl p-5" style="transition-delay:.12s">
+          <div class="font-serif text-3xl text-gold/40 mb-2">03</div>
+          <h3 class="font-medium text-white mb-1">Bring your openness</h3>
+          <p class="text-sm text-mist leading-relaxed">Luck picks the people. You bring the curiosity. The rest takes care of itself.</p>
+        </div>
+      </div>
+
+      <p class="reveal mt-12 text-sm text-mist/70 italic">You already took the first lucky step by being here.</p>
+    </div>
+  </header>
+
+  <footer class="relative py-10 px-6 text-center text-xs text-mist/50 border-t border-white/5">
+    Shaping Luck · Serendipity, on a schedule
+  </footer>
+
+  <!-- ============================ SCRIPTS ============================ -->
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    (function () {
+      const bar = document.getElementById('topbar');
+      const onScroll = () => {
+        if (window.scrollY > 40) bar.classList.add('bg-night/80','backdrop-blur-md','border-b','border-white/5');
+        else bar.classList.remove('bg-night/80','backdrop-blur-md','border-b','border-white/5');
+      };
+      onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+    })();
+
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      if (reduceMotion || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+      const io = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+      els.forEach(e => io.observe(e));
+    })();
+
+    (function () {
+      const canvas = document.getElementById('constellation'); if (!canvas) return;
+      const ctx = canvas.getContext('2d'); let w,h,dpr,nodes=[],raf=null;
+      const GOLD='rgba(245,184,65,', WHITE='rgba(226,232,240,';
+      function resize(){ dpr=Math.min(window.devicePixelRatio||1,2); w=canvas.clientWidth; h=canvas.clientHeight; canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); const t=Math.min(Math.floor((w*h)/14000),90); nodes=[]; for(let i=0;i<t;i++) nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.6+.6,gold:Math.random()<.22}); }
+      const LINK=130;
+      function frame(){ ctx.clearRect(0,0,w,h); for(let i=0;i<nodes.length;i++){ const n=nodes[i]; n.x+=n.vx; n.y+=n.vy; if(n.x<0||n.x>w)n.vx*=-1; if(n.y<0||n.y>h)n.vy*=-1; for(let j=i+1;j<nodes.length;j++){ const m=nodes[j]; const d=Math.hypot(n.x-m.x,n.y-m.y); if(d<LINK){ const a=(1-d/LINK)*.22; const g=n.gold||m.gold; ctx.strokeStyle=(g?GOLD:WHITE)+a+')'; ctx.lineWidth=g?.8:.5; ctx.beginPath(); ctx.moveTo(n.x,n.y); ctx.lineTo(m.x,m.y); ctx.stroke(); } } } for(const n of nodes){ ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fillStyle=(n.gold?GOLD:WHITE)+(n.gold?.9:.55)+')'; ctx.fill(); } raf=requestAnimationFrame(frame); }
+      resize(); if(reduceMotion){ frame(); cancelAnimationFrame(raf); } else { frame(); }
+      let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(resize,200); });
+    })();
+  </script>
+</body>
+</html>
